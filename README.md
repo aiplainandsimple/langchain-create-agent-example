@@ -6,6 +6,21 @@ API with an OpenAI model and a local Python tool.
 The example is intentionally small: the agent can call one deterministic
 learning-path tool, then explain the result conversationally.
 
+## How it works
+
+```mermaid
+flowchart LR
+    A["Learner question"] --> B["CLI entrypoint"]
+    B --> C["create_learning_agent()"]
+    C --> D["LangChain create_agent"]
+    D --> E{"Need course guidance?"}
+    E -->|yes| F["recommend_learning_path tool"]
+    F --> G["lesson_data.py"]
+    G --> D
+    E -->|no| H["Model answers directly"]
+    D --> I["Final tutor response"]
+```
+
 ## What this teaches
 
 - how to define a LangChain tool with `@tool`
